@@ -1,0 +1,31 @@
+version: 0.0
+os: linux
+files:
+- source: docker-compose-access-control-api.yml
+  destination: /libre/docker/
+file_exists_behavior: OVERWRITE
+
+permissions:
+- object: /libre/docker
+  pattern: "docker-compose-access-control-api.yml"
+  mode: 755
+  type:
+  - file
+hooks:
+  ApplicationStop:
+  - location: codedeploy/app_stop.sh
+    timeout:
+    runas: ec2-user
+  BeforeInstall:
+  - location: codedeploy/before_install.sh
+    timeout: 180
+    runas: ec2-user
+  AfterInstall:
+  - location: codedeploy/after_install.sh
+    timeout: 180
+    runas: ec2-user
+  ApplicationStart:
+  - location: codedeploy/app_start.sh
+    timeout: 180
+    runas: ec2-user
+

@@ -1,0 +1,28 @@
+version: 0.2
+env:
+  variables:
+    APP_NAME: "access-control-api"
+    AWS_DEFAULT_REGION: us-east-1
+    AWS_ACCOUNT_ID: 814231045142
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+    commands:
+    - docker version
+  pre_build:
+    commands:
+    - echo Logging in to Amazon ECR...
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+    - echo Logging in to Amazon ECR successfull
+  build:
+    commands:
+    - echo Starting build process...
+    - docker build --build-arg="JAR_FILE=${APP_NAME}" -t $APP_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
+    - echo Finished build process
+    - docker tag $APP_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/inti-$APP_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
+    - docker tag $APP_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/inti-$APP_NAME:latest
+    - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/inti-$APP_NAME --all-tags
+  post_build:
+    commands:
+    - echo Build complete...

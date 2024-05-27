@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  access-control-api:
+    image: 814231045142.dkr.ecr.us-east-1.amazonaws.com/inti-access-control-api:latest
+    container_name: inti-access-control-api
+    ports:
+      - '30011:3000'

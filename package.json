@@ -1,0 +1,39 @@
+{
+  "name": "educaris-mobile-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev:local": "dotenv -e .env.local -- nodemon src/server.js",
+    "dev:remote": "dotenv -e .env.remote -- nodemon src/server.js",
+    "test": "dotenv -e .env.test -- jest",
+    "migrate": "sequelize db:migrate",
+    "migrate:local": "dotenv -e .env.local -- sequelize db:migrate",
+    "migrate:remote": "dotenv -e .env.remote -- sequelize db:migrate",
+    "migrate:undo:local": "dotenv -e .env.local -- sequelize db:migrate:undo",
+    "migrate:undo:remote": "dotenv -e .env.remote -- sequelize db:migrate:undo",
+    "migrate:undo:all:local": "dotenv -e .env.local -- sequelize db:migrate:undo:all",
+    "migrate:undo:all:remote": "dotenv -e .env.remote -- sequelize db:migrate:undo:all",
+    "start:prod": "dotenv -e .env.production -- node src/server.js",
+    "deploy:testing": "dotenv -e .env.remote -- sequelize db:migrate && dotenv -e .env.remote -- node src/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.9.7",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2",
+    "nodemon": "^3.1.0",
+    "sequelize-cli": "^6.6.2"
+  }
+}

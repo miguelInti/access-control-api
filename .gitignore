@@ -1,0 +1,31 @@
+# Dependencias
+node_modules/
+
+# Archivos de entorno
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Directorios de desarrollo de IDE / editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de salida
+/dist
+/build
+
+# Otros archivos y directorios
+.DS_Store
+Thumbs.db
+
+# Archivos específicos de Sequelize
+.sequelizerc
+
+# Archivos de base de datos local
+*.sqlite
